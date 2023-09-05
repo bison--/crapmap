@@ -2,6 +2,11 @@ import struct
 
 
 def write_crapmap(filename, image_data, color_table=None):
+    # Check if the number of colors (excluding transparency) is within the allowed range
+    if color_table and len(color_table) > 255:  # Excluding 0x00 for transparency
+        raise ValueError(
+            "Number of colors exceeds the maximum supported by crapmap (maximum 255 excluding transparency).")
+
     with open(filename, 'wb') as f:
         # Write magic bytes and version
         f.write(b'CRAP')
