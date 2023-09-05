@@ -35,15 +35,12 @@ def read_crapmap(filename):
         for row in pixel_data:
             image_row = []
             for pixel in row:
-                if pixel == 0xFF:
-                    image_row.append((255, 255, 255, 0))  # Transparent
-                elif pixel < len(color_table):
-                    image_row.append((*color_table[pixel], 255))  # RGB + Alpha
+                if pixel == 0x00:  # Transparent
+                    image_row.append((255, 255, 255, 0))
+                elif 0 < pixel <= len(color_table):  # Adjust index to match Python's 0-based list indexing
+                    image_row.append((*color_table[pixel - 1], 255))
                 else:
                     image_row.append((0, 0, 0, 255))  # Undefined color (black for now)
             image_data.append(image_row)
 
     return image_data
-
-# Test with a sample file
-# (Note: We don't have a sample .crapmap file yet, so this is just the implementation without a test.)

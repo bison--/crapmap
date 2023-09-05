@@ -52,4 +52,4 @@ def visualize_crapmap(filename):
 
 
 if __name__ == '__main__':
-    visualize_crapmap('data/sample.crapmap')
+    visualize_crapmap('data/sample1.crapmap')

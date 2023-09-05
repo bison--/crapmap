@@ -24,11 +24,10 @@ def write_crapmap(filename, image_data, color_table=None):
             pixel_row = []
             for pixel in row:
                 if pixel[3] == 0:  # Alpha is 0, so it's transparent
-                    pixel_row.append(0xFF)
+                    pixel_row.append(0x00)
                 elif color_table and pixel[:3] in color_table:
-                    pixel_row.append(color_table.index(pixel[:3]))
+                    pixel_index = color_table.index(pixel[:3]) + 1  # Adjust index to match .crapmap format
+                    pixel_row.append(pixel_index)
                 else:
                     pixel_row.append(0x01)  # Undefined color index
             f.write(bytes(pixel_row))
-
-# We'll test this function once we have a sample image data and color table.
